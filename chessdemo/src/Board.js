@@ -1,5 +1,6 @@
 import { Square } from "./Square";
 import { useState } from "react";
+import { useEffect } from "react";
 import "./Board.css";
 
 export const Board = function () {
@@ -24,6 +25,14 @@ export const Board = function () {
       return true;
     return false;
   };
+  useEffect(() => {
+    if (gameOver()) {
+      setTimeout(() => {
+        alert("Gameover, the page will reload soon");
+        window.location.reload();
+      }, 500);
+    }
+  });
   const handleclick = function (i) {
     if (squares[i]) return;
     const nextSquare = squares.slice();
@@ -34,10 +43,6 @@ export const Board = function () {
     }
     setSquares(nextSquare);
     setXro(1 - xro);
-    if (gameOver()) {
-      alert("Gameover, the page will reload soon");
-      window.location.reload();
-    }
   };
   return (
     <>
