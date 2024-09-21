@@ -5,7 +5,27 @@ import "./Board.css";
 export const Board = function () {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xro, setXro] = useState(0);
+  const gameOver = function () {
+    if (squares[0] === squares[1] && squares[1] === squares[2] && squares[0])
+      return true;
+    if (squares[3] === squares[4] && squares[4] === squares[5] && squares[3])
+      return true;
+    if (squares[6] === squares[7] && squares[7] === squares[8] && squares[6])
+      return true;
+    if (squares[0] === squares[3] && squares[3] === squares[6] && squares[0])
+      return true;
+    if (squares[1] === squares[4] && squares[4] === squares[7] && squares[1])
+      return true;
+    if (squares[2] === squares[5] && squares[5] === squares[8] && squares[2])
+      return true;
+    if (squares[0] === squares[4] && squares[4] === squares[8] && squares[0])
+      return true;
+    if (squares[2] === squares[4] && squares[4] === squares[6] && squares[2])
+      return true;
+    return false;
+  };
   const handleclick = function (i) {
+    if (squares[i]) return;
     const nextSquare = squares.slice();
     if (xro) {
       nextSquare[i] = "X";
@@ -14,6 +34,10 @@ export const Board = function () {
     }
     setSquares(nextSquare);
     setXro(1 - xro);
+    if (gameOver()) {
+      alert("Gameover, the page will reload soon");
+      window.location.reload();
+    }
   };
   return (
     <>
